@@ -13,15 +13,19 @@ export default defineConfig({
 
 # STEP 2: Install the gh-pages Package
 
+```
 npm install gh-pages --save-dev
-
+```
 
 # STEP 3: Add Deployment Scripts to package.json
 
 Add Homepage: At the top level of the JSON object, add the homepage property:
 
+```
 "homepage": "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPOSITORY_NAME"
+```
 
+```
 "scripts": {
   "dev": "vite",
   "build": "vite build",
@@ -29,15 +33,16 @@ Add Homepage: At the top level of the JSON object, add the homepage property:
   "predeploy": "npm run build",
   "deploy": "gh-pages -d dist"
 }
-
+```
 
 # STEP 4: Push Your Source Code to GitHub
 
 
 # STEP 5: Run the Deployment Command
 
+```
 npm run deploy
-
+```
 
 
 
