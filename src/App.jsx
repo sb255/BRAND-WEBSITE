@@ -12,12 +12,12 @@ import PhotoWall from './components/PhotoWall'
 
 //declaring an array of objects
   const productDetails = [
-    { name: 'Masoor Whole Sortex Clean', image: '${import.meta.env.BASE_URL}/MASOOR.png' },
-    { name: 'Masoor Dal', image: '${import.meta.env.BASE_URL}MOONG-TWO.png' },
-    { name: 'Moong Dal', image: '${import.meta.env.BASE_URL}MOONG.png' },
-    { name: 'Rajma Kashmiri', image: '${import.meta.env.BASE_URL}RAJMA.png' },
-    { name: 'Red Chilli Powder', image: '${import.meta.env.BASE_URL}RED-CHILLI-POWDER.png' },
-    { name: 'Turmeric Powder', image: '${import.meta.env.BASE_URL}TURMERIC-POWDER.png' }
+    { name: 'Masoor Whole Sortex Clean', image: '/BRAND-WEBSITE/MASOOR.png' },
+    { name: 'Masoor Dal', image: '/BRAND-WEBSITE/MOONG-TWO.png' },
+    { name: 'Moong Dal', image: '/BRAND-WEBSITE/MOONG.png' },
+    { name: 'Rajma Kashmiri', image: '/BRAND-WEBSITE/RAJMA.png' },
+    { name: 'Red Chilli Powder', image: '/BRAND-WEBSITE/RED-CHILLI-POWDER.png' },
+    { name: 'Turmeric Powder', image: '/BRAND-WEBSITE/TURMERIC-POWDER.png' }
   ];
 
   const productPhotos = [
