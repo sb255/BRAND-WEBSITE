@@ -1,120 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import Navigationbar from './components/Navigationbar'
+import Landingpage from './components/Landingpage'
+import Mission from './components/Mission'
+import Catalogue from './components/Catalogue'
+import GroxifiMovie from './assets/Groxifi_movie.mov'
+import SectionTitle from './components/SectionTitle'
+import Picture from './components/Picture'
+import ProductShelf from './components/ProductShelf'
+import SuccessStories from './components/SuccessStories'
+import Footer from './components/Footer'
+import PhotoWall from './components/PhotoWall'
+
+//declaring an array of objects
+  const productDetails = [
+    { name: 'Masoor Whole Sortex Clean', image: '/MASOOR.png' },
+    { name: 'Masoor Dal', image: '/MOONG-TWO.png' },
+    { name: 'Moong Dal', image: '/MOONG.png' },
+    { name: 'Rajma Kashmiri', image: '/RAJMA.png' },
+    { name: 'Red Chilli Powder', image: '/RED-CHILLI-POWDER.png' },
+    { name: 'Turmeric Powder', image: '/TURMERIC-POWDER.png' }
+  ];
+
+  const productPhotos = [
+    { source: '/farmer-story-one.jpg' },
+    { source: '/farmer-story-two.jpg' },
+    { source: '/farmer-story-three.jpg' },
+    { source: '/farmer-story-four.jpg' },
+    { source: '/farmer-story-thirteen.jpg'},
+    { source: '/farmer-story-six.jpg' },
+    { source: '/farmer-story-seven.jpg' },
+    { source: '/farmer-story-eight.jpg' },
+    { source: '/farmer-story-nine.jpg' },
+    { source: '/farmer-story-ten.jpg' },
+    { source: '/farmer-story-eleven.jpg' },
+    { source: '/farmer-story-twelve.jpg' },
+  ]
 
 function App() {
-  const [count, setCount] = useState(0)
-
+ 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Getting started with the brand new website using React</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <Navigationbar />
+      <Landingpage />
+      <Mission />
+      <SectionTitle title={'View our top quality products'}/>
+      <ProductShelf cart={productDetails}/>
+      <SectionTitle title={'TOP COVERAGE FROM THE BEST SCIENTISTS OF INDIA'}/>
+      <Picture />
+      <SectionTitle title={'OUR FARMERS NETWORK SHOWCASING THEIR SUCCESS STORIES'}/>
+      <PhotoWall exportPhotos={productPhotos}/>
+      <Footer />
     </>
   )
 }
