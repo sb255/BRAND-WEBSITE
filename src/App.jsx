@@ -21,18 +21,18 @@ import PhotoWall from './components/PhotoWall'
   ];
 
   const productPhotos = [
-    { source: '/farmer-story-one.jpg' },
-    { source: '/farmer-story-two.jpg' },
-    { source: '/farmer-story-three.jpg' },
-    { source: '/farmer-story-four.jpg' },
-    { source: '/farmer-story-thirteen.jpg'},
-    { source: '/farmer-story-six.jpg' },
-    { source: '/farmer-story-seven.jpg' },
-    { source: '/farmer-story-eight.jpg' },
-    { source: '/farmer-story-nine.jpg' },
-    { source: '/farmer-story-ten.jpg' },
-    { source: '/farmer-story-eleven.jpg' },
-    { source: '/farmer-story-twelve.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-one.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-two.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-three.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-four.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-thirteen.jpg'},
+    { source: '/BRAND-WEBSITE/farmer-story-six.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-seven.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-eight.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-nine.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-ten.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-eleven.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-twelve.jpg' },
   ]
 
 function App() {
