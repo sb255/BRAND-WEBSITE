@@ -3,11 +3,11 @@ function Catalogue(props){
     return (
         <>
             <div>
-                <div class="w-50 mx-20 my-20 hover:translate-1">
-                    <img class="my-4" src={props.productImage}></img>
-                    <div class="flex flex-col my-4">
-                        <h5 class="card-title my-2">{props.cardTitle}</h5> 
-                    </div>
+                <div class="flex flex-nowrap overflow-hidden justify-center px-10 py-10">
+                    <img src={props.productImage}></img>
+                </div>
+                <div class="flex flex-col font-bold my-4">
+                    <h5 class="card-title my-2">{props.cardTitle}</h5> 
                 </div>
             </div>
             
