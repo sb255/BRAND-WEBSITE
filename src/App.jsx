@@ -14,7 +14,7 @@ import PhotoWall from './components/PhotoWall'
   const productDetails = [
     { name: 'Masoor Whole Sortex Clean', image: '/BRAND-WEBSITE/MASOOR.png' },
     { name: 'Masoor Dal', image: '/BRAND-WEBSITE/MOONG-TWO.png' },
-    { name: 'Moong Dal', image: './BRAND-WEBSITE/MOONG.png' },
+    { name: 'Moong Dal', image: '/BRAND-WEBSITE/MOONG.png' },
     { name: 'Rajma Kashmiri', image: '/BRAND-WEBSITE/RAJMA.png' },
     { name: 'Red Chilli Powder', image: '/BRAND-WEBSITE/RED-CHILLI-POWDER.png' },
     { name: 'Turmeric Powder', image: '/BRAND-WEBSITE/TURMERIC-POWDER.png' }
