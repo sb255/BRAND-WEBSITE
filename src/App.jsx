@@ -12,27 +12,27 @@ import PhotoWall from './components/PhotoWall'
 
 //declaring an array of objects
   const productDetails = [
-    { name: 'Masoor Whole Sortex Clean', image: './BRAND-WEBSITE/MASOOR.png' },
-    { name: 'Masoor Dal', image: './BRAND-WEBSITE/MOONG-TWO.png' },
+    { name: 'Masoor Whole Sortex Clean', image: '/BRAND-WEBSITE/MASOOR.png' },
+    { name: 'Masoor Dal', image: '/BRAND-WEBSITE/MOONG-TWO.png' },
     { name: 'Moong Dal', image: './BRAND-WEBSITE/MOONG.png' },
-    { name: 'Rajma Kashmiri', image: './BRAND-WEBSITE/RAJMA.png' },
-    { name: 'Red Chilli Powder', image: './BRAND-WEBSITE/RED-CHILLI-POWDER.png' },
-    { name: 'Turmeric Powder', image: './BRAND-WEBSITE/TURMERIC-POWDER.png' }
+    { name: 'Rajma Kashmiri', image: '/BRAND-WEBSITE/RAJMA.png' },
+    { name: 'Red Chilli Powder', image: '/BRAND-WEBSITE/RED-CHILLI-POWDER.png' },
+    { name: 'Turmeric Powder', image: '/BRAND-WEBSITE/TURMERIC-POWDER.png' }
   ];
 
   const productPhotos = [
-    { source: './BRAND-WEBSITE/farmer-story-one.jpg' },
-    { source: './BRAND-WEBSITE/farmer-story-two.jpg' },
-    { source: './BRAND-WEBSITE/farmer-story-three.jpg' },
-    { source: './BRAND-WEBSITE/farmer-story-four.jpg' },
-    { source: './BRAND-WEBSITE/farmer-story-thirteen.jpg'},
-    { source: './BRAND-WEBSITE/farmer-story-six.jpg' },
-    { source: './BRAND-WEBSITE/farmer-story-seven.jpg' },
-    { source: './BRAND-WEBSITE/farmer-story-eight.jpg' },
-    { source: './BRAND-WEBSITE/farmer-story-nine.jpg' },
-    { source: './BRAND-WEBSITE/farmer-story-ten.jpg' },
-    { source: './BRAND-WEBSITE/farmer-story-eleven.jpg' },
-    { source: './BRAND-WEBSITE/farmer-story-twelve.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-one.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-two.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-three.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-four.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-thirteen.jpg'},
+    { source: '/BRAND-WEBSITE/farmer-story-six.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-seven.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-eight.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-nine.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-ten.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-eleven.jpg' },
+    { source: '/BRAND-WEBSITE/farmer-story-twelve.jpg' },
   ]
 
 function App() {
