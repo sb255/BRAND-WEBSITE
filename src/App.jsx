@@ -12,7 +12,7 @@ import PhotoWall from './components/PhotoWall'
 
 //declaring an array of objects
   const productDetails = [
-    { name: 'Masoor Whole Sortex Clean', image: '/BRAND-WEBSITE/MASOOR.png' },
+    { name: 'Masoor Whole Sortex Clean', image: './MASOOR.png' },
     { name: 'Masoor Dal', image: '/BRAND-WEBSITE/MOONG-TWO.png' },
     { name: 'Moong Dal', image: '/BRAND-WEBSITE/MOONG.png' },
     { name: 'Rajma Kashmiri', image: '/BRAND-WEBSITE/RAJMA.png' },
