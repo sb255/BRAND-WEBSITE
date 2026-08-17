@@ -7,7 +7,9 @@ function ProductShelf(props){
               <div class="grid grid-cols-3">
                 {
                     props.cart.map((items)=>(
-                    <Catalogue productImage={items.image} cardTitle={items.name}/>
+                    <div class="flex justify-center">
+                        <Catalogue productImage={items.image} cardTitle={items.name}/>
+                    </div>
                 ))}
             </div>
         </>

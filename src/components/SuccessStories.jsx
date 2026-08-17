@@ -4,7 +4,7 @@ function SuccessStories() {
 
     return (
         <>
-        
+            /* There is no content to show right now*/
         </>
     )
 
