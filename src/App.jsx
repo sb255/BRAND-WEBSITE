@@ -9,6 +9,7 @@ import ProductShelf from './components/ProductShelf'
 import SuccessStories from './components/SuccessStories'
 import Footer from './components/Footer'
 import PhotoWall from './components/PhotoWall'
+import Checks from './components/Checks'
 
 //declaring an array of objects
   const productDetails = [
@@ -40,9 +41,10 @@ function App() {
   return (
     <>
       <Navigationbar />
+      <Checks />
       <Landingpage />
       <Mission />
-      <SectionTitle title={'View our top quality products'}/>
+      <SectionTitle title={'VIEW OUR TOP QUALITY PRODUCTS'}/>
       <ProductShelf cart={productDetails}/>
       <SectionTitle title={'TOP COVERAGE FROM THE BEST SCIENTISTS OF INDIA'}/>
       <Picture />
