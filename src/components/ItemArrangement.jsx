@@ -4,7 +4,9 @@ function ItemArrangement(props){
         <>
             
             <div class="px-2 py-2 hover:translate-1">
-               <img src={props.photos}></img>
+                <a href={props.url} target="_blank" rel="noopener noreferrer">
+                    <img src={props.photos}></img>
+                </a>
             </div>
         </>
     )

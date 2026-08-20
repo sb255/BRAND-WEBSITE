@@ -22,18 +22,18 @@ import Checks from './components/Checks'
   ];
 
   const productPhotos = [
-    { source: './farmer-story-one.jpg' },
-    { source: './farmer-story-two.jpg' },
-    { source: './farmer-story-three.jpg' },
-    { source: './farmer-story-four.jpg' },
-    { source: './farmer-story-thirteen.jpg'},
-    { source: './farmer-story-six.jpg' },
-    { source: './farmer-story-seven.jpg' },
-    { source: './farmer-story-eight.jpg' },
-    { source: './farmer-story-nine.jpg' },
-    { source: './farmer-story-ten.jpg' },
-    { source: './farmer-story-eleven.jpg' },
-    { source: './farmer-story-twelve.jpg' },
+    { source: './farmer-story-one.jpg', url:'https://www.youtube.com/watch?v=UIJP5e1YjWA'},
+    { source: './farmer-story-two.jpg', url:'https://youtu.be/muPPKDqAUZ8?si=ki5tsCv-a1YRuhgU'},
+    { source: './farmer-story-three.jpg', url:'https://youtu.be/Bls5ZyXZEio?si=jjHC2hDC9AS9UFnS'},
+    { source: './farmer-story-four.jpg', url:'https://youtu.be/ADKzIjySwRs?si=IVmTJ65jkq2PS-Nv'},
+    { source: './farmer-story-thirteen.jpg', url:'https://youtu.be/6e8VXAOFEuw?si=elImZWtzHDrSESbW'},
+    { source: './farmer-story-six.jpg', url:'https://youtu.be/GTB0OENMdLQ?si=_Nb9DqeXbL4bOKi-'},
+    { source: './farmer-story-seven.jpg', url:'https://youtu.be/-fPLwvKJImQ?si=YkD0R0vtEzMp2_5L'},
+    { source: './farmer-story-eight.jpg', url:'https://youtu.be/ZBV0GZBVmUg?si=RIBmSQ0QIAAjziRI'},
+    { source: './farmer-story-nine.jpg', url:'https://youtu.be/Cc79pWZC-64?si=o1ZE-Ya709-RVtT-'},
+    { source: './farmer-story-ten.jpg', url:'https://youtu.be/9bTeofjkZb0?si=Le__fEC-TBME91sJ'},
+    { source: './farmer-story-eleven.jpg', url:'https://youtu.be/WzkUc9mu8Gg?si=4_KpO9UzafeMl55K'},
+    { source: './farmer-story-twelve.jpg', url:'https://youtu.be/qCaGlCvOQME?si=tjbVVUAxrWTSqHA_'},
   ]
 
 function App() {

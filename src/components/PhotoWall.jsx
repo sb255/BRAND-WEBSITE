@@ -8,7 +8,7 @@ function PhotoWall(props){
             <div class="grid grid-cols-2 px-2 py-2">         
                 {
                     props.exportPhotos.map((items)=>(
-                    <ItemArrangement photos={items.source}/>
+                    <ItemArrangement photos={items.source} url={items.url}/>
                 ))}
             </div>
         </>
