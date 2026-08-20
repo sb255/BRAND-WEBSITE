@@ -44,11 +44,11 @@ function App() {
       <Checks />
       <Landingpage />
       <Mission />
-      <SectionTitle title={'VIEW OUR TOP QUALITY PRODUCTS'}/>
+      <SectionTitle title={'VIEW OUR TOP QUALITY PRODUCTS'} iconNumber={0}/>
       <ProductShelf cart={productDetails}/>
-      <SectionTitle title={'TOP COVERAGE FROM THE BEST SCIENTISTS OF INDIA'}/>
+      <SectionTitle title={'TOP COVERAGE FROM THE BEST SCIENTISTS OF INDIA'} iconNumber={1}/>
       <Picture />
-      <SectionTitle title={'OUR FARMERS NETWORK SHOWCASING THEIR SUCCESS STORIES'}/>
+      <SectionTitle title={'OUR FARMERS NETWORK SHOWCASING THEIR SUCCESS STORIES'} iconNumber={2}/>
       <PhotoWall exportPhotos={productPhotos}/>
       <Footer />
     </>

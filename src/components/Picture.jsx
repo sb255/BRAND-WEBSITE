@@ -4,11 +4,13 @@ function Picture() {
 
     return (
         <>  
-            <video width="100%" controls>
-                <source
-                    src={GroxifiMovie} type="video/mp4"
-                />
-            </video>
+            <div class="my-2">
+                <video width="100%" controls>
+                    <source
+                        src={GroxifiMovie} type="video/mp4"
+                    />
+                </video>
+            </div>
         </>
     )
 

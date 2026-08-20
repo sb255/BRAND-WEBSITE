@@ -5,7 +5,7 @@ function Mission() {
     return(
         <>
             <img class="bg-cyan-50" src={coverphoto}></img>
-            <img class="bg-amber-50" src={titlephoto}></img>
+            <img class="bg-amber-50 my-2" src={titlephoto}></img>
 
         </>
     )

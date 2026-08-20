@@ -6,7 +6,7 @@ function SectionTitle(props){
     return(
         <>
             <Checks />
-            <HeadingComponent newTitle={props.title}/>
+            <HeadingComponent newTitle={props.title} iconNumber={props.iconNumber}/>
             <Checks />
         </>
     )

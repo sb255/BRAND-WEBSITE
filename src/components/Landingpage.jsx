@@ -4,8 +4,8 @@ function Landingpage () {
 
     return (
         <>
-        <div class="groweb-landing-component">
-            <div class="groweb-div"><img src={products}></img></div>
+        <div>
+            <div><img src={products}></img></div>
         </div>
         </>
     )
