@@ -4,8 +4,8 @@ import coverphoto from '../assets/text-main-2.png'
 function Mission() {
     return(
         <>
-            <img class="bg-cyan-50" src={coverphoto}></img>
-            <img class="bg-amber-50 my-2" src={titlephoto}></img>
+            <img class="bg-[#f7f6ef]" src={coverphoto}></img>
+            <img class="bg-[#f7f6ef]" src={titlephoto}></img>
 
         </>
     )

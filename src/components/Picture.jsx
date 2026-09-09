@@ -4,7 +4,7 @@ function Picture() {
 
     return (
         <>  
-            <div class="my-2">
+            <div>
                 <video width="100%" controls>
                     <source
                         src={GroxifiMovie} type="video/mp4"

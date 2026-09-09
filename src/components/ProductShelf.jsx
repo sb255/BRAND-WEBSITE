@@ -43,17 +43,6 @@ function ProductShelf(props) {
           ))}
         </div>
 
-        {/* Bottom Detail */}
-        <div className="mt-16 flex items-center justify-between border-t border-[#dcdcd2] pt-6 md:mt-20">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#8b9183]">
-            Carefully sourced
-          </p>
-
-          <span className="text-xs uppercase tracking-[0.2em] text-[#6b873f]">
-            Groxifi
-          </span>
-        </div>
-
       </div>
     </section>
   );

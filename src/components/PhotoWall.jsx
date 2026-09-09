@@ -66,29 +66,6 @@ function PhotoWall(props) {
           })}
 
         </div>
-
-        {/* Bottom Statement */}
-        <div className="mt-16 border-t border-[#dcdcd2] pt-8 lg:mt-20">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-
-            <p className="max-w-xl text-sm leading-6 text-[#74796e]">
-              From the first seed to the final harvest,
-              <span className="text-[#315b20]">
-                {" "}every journey matters.
-              </span>
-            </p>
-
-            <div className="flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-[#6b873f]" />
-
-              <span className="text-xs font-medium uppercase tracking-[0.2em] text-[#6b873f]">
-                Farmer Stories
-              </span>
-            </div>
-
-          </div>
-        </div>
-
       </div>
     </section>
   );

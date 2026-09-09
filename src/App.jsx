@@ -41,7 +41,6 @@ function App() {
   return (
     <>
       <Navigationbar />
-      <Checks />
       <Landingpage />
       <Mission />
       <SectionTitle title={'VIEW OUR TOP QUALITY PRODUCTS'} iconNumber={0}/>
