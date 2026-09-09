@@ -97,21 +97,6 @@ function Catalogue(props) {
             </h3>
           </div>
 
-          {/* Arrow */}
-          <span
-            className="
-              mt-1
-              text-lg
-              text-[#9ba28f]
-              transition-all
-              duration-300
-              group-hover:translate-x-1
-              group-hover:text-[#315b20]
-            "
-          >
-            →
-          </span>
-
         </div>
 
         {/* Animated underline */}
