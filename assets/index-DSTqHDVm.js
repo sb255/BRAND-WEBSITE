@@ -128,21 +128,13 @@ Error generating stack: `+e.message+`
             duration-500
             group-hover:translate-y-0
             group-hover:opacity-0
-          `})]}),(0,p.jsxs)(`div`,{className:`px-1 pt-4`,children:[(0,p.jsxs)(`div`,{className:`flex items-start justify-between gap-3`,children:[(0,p.jsx)(`div`,{children:(0,p.jsx)(`h3`,{className:`
+          `})]}),(0,p.jsxs)(`div`,{className:`px-1 pt-4`,children:[(0,p.jsx)(`div`,{className:`flex items-start justify-between gap-3`,children:(0,p.jsx)(`div`,{children:(0,p.jsx)(`h3`,{className:`
                 text-sm
                 font-semibold
                 leading-6
                 text-[#26351f]
                 sm:text-base
-              `,children:e.cardTitle})}),(0,p.jsx)(`span`,{className:`
-              mt-1
-              text-lg
-              text-[#9ba28f]
-              transition-all
-              duration-300
-              group-hover:translate-x-1
-              group-hover:text-[#315b20]
-            `,children:`→`})]}),(0,p.jsx)(`div`,{className:`
+              `,children:e.cardTitle})})}),(0,p.jsx)(`div`,{className:`
             mt-4
             h-px
             w-8
