@@ -10,6 +10,7 @@ import SuccessStories from './components/SuccessStories'
 import Footer from './components/Footer'
 import PhotoWall from './components/PhotoWall'
 import Checks from './components/Checks'
+import Test from './components/Test'
 
 //declaring an array of objects
   const productDetails = [
@@ -41,6 +42,7 @@ function App() {
   return (
     <>
       <Navigationbar />
+      <Test />
       <Landingpage />
       <Mission />
       <SectionTitle title={'VIEW OUR TOP QUALITY PRODUCTS'} iconNumber={0}/>
