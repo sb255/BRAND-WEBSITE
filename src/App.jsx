@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import PhotoWall from './components/PhotoWall'
 import Checks from './components/Checks'
 import Test from './components/Test'
+import SurveyForm from './components/SurveyForm'
 
 //declaring an array of objects
   const productDetails = [
