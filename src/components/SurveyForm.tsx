@@ -4,9 +4,21 @@ import { useState } from 'react';
 
 function SurveyForm(){
 
-    const { register,
-            handleSubmit,
-            formState: {errors, isSubmitting},
+    const {
+        register,
+        handleSubmit,
+        formState: {
+        errors,
+        isDirty,
+        isValid,
+        isSubmitting,
+        isSubmitted,
+        isSubmitSuccessful,
+        isLoading,
+        dirtyFields,
+        touchedFields,
+        submitCount,
+        },
     } = useForm<FormFields>();
 
     const [status, setStatus] = useState(false);
@@ -32,7 +44,7 @@ function SurveyForm(){
                         <label className="flex justify-end mx-5 my-5 text-2xl">NAME: </label>
                     </div>
                     <div className="w-3/5">
-                        <input className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2" type="text" placeholder="johndoe@example.com"
+                        <input className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2" type="text" placeholder="Samarth Bais"
                             {...register("name", {
                                     required: "NAME IS REQURIED",
                                     minLength: {
@@ -67,11 +79,22 @@ function SurveyForm(){
                 </div>
                 <div className="w-full flex items-center justify-center bg-red-50">
                     <div className="w-2/5">
-                        <label className="flex mx-5 my-5 text-2xl justify-end">PASSWORD: </label>
+                        <label className="flex justify-end mx-5 my-5 text-2xl">PASSWORD: </label>
                     </div>
                     <div className="w-3/5">
-                        <input className="flex mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2 justify-start" type="text" placeholder="password"/>
-                    </div>
+                        <input className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2" type="password"
+                            {...register("password", {
+                                    required: "PASSWORD SHOULD HAVE A LENGHT OF 8 CHARACTERS",
+                                    minLength: {
+                                        value: 8,
+                                        message: "INSUFFICIENT LENGHT OF THE PASSWORD"
+                                    }
+                            })}
+                        />
+                        {errors.password && (
+                                    <p style={{ color: "red" }}>{errors.password.message}</p>
+                                )}
+                    </div>  
                 </div>
                 <div className="w-full flex items-center justify-center bg-red-50">
                     <button className="bg-cyan-100 mx-5 my-5 text-2xl border-2 rounded-xl px-2 py-2" type="submit">SUBMIT</button>
@@ -82,11 +105,39 @@ function SurveyForm(){
                             <p style={{ color: "red" }}>THE FORM HAS BEEN SUCCESFULLY SUBMITTED BY THE USER</p> 
                         )
                     }
-                </div>
+                </div>      
             </form>
         </>
     )
 }
 
+/*
+
+Imagine useForm() returns an object like this:
+
+{
+  register: function,
+  handleSubmit: function,
+  formState: {
+    errors: {
+      name: {
+        message: "Name is required"
+      }
+    },
+    isSubmitting: false,
+    isDirty: true
+  }
+}
+You could access the errors like this:
+
+const result = useForm();
+
+const errors = result.formState.errors; Or, more conveniently, you can write:
+
+const {
+  formState: { errors },
+} = useForm();
+ 
+*/
 
 export default SurveyForm

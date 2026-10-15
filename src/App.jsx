@@ -12,6 +12,7 @@ import PhotoWall from './components/PhotoWall'
 import Checks from './components/Checks'
 import Test from './components/Test'
 import SurveyForm from './components/SurveyForm'
+import Query from './components/Query'
 
 //declaring an array of objects
   const productDetails = [
