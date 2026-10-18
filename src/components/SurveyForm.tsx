@@ -143,7 +143,9 @@ const {
 
 /*
 
-<form action={submitAction}>
+Other options if you're not using react-hook-form
+
+<form action={submitAction}> 
 
 Here, React provides the submitted values as FormData; you can read them using .get().
 The key difference: React Hook Form is a form-management library, while the action prop is a built-in React feature.
