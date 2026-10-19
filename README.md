@@ -63,19 +63,19 @@ npm run deploy
 
 ## 🌐 Custom Domain Setup with GoDaddy
 
-This section explains how to connect a custom domain purchased through [GoDaddy](https://www.godaddy.com/) to a website hosted using GitHub Pages.
+This section explains how to connect a custom domain purchased through [GoDaddy](https://yourdomain.com) to a website hosted using GitHub Pages.
 
-In this project, the custom domain is `groxifi.com`.
+In this project, the custom domain is `yourdomain.com`.
 
 ### Step 1: Add the Custom Domain on GitHub
 
-1. Open the [brand-website repository](https://github.com/sb255/brand-website).
+1. Open the [your-github-repository](https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME).
 2. Navigate to **Settings**.
 3. Under **Code and automation**, select **Pages**.
 4. In the **Custom domain** field, enter:
 
    ```text
-   groxifi.com
+   yourdomain.com
    ```
 
 5. Click **Save**.
@@ -84,13 +84,13 @@ In this project, the custom domain is `groxifi.com`.
 GitHub may create or update a `CNAME` file in the published website's root directory. The file should contain:
 
 ```text
-groxifi.com
+yourdomain.com
 ```
 
 ### Step 2: Configure DNS Records in GoDaddy
 
-1. Sign in to your [GoDaddy account](https://www.godaddy.com/).
-2. Open **My Products** and select your domain, `groxifi.com`.
+1. Sign in to your [GoDaddy account](https://yourdomain.com).
+2. Open **My Products** and select your domain, `yourdomain.com`.
 3. Navigate to **DNS** or **Manage DNS**.
 4. Add or update the following DNS records.
 
@@ -107,11 +107,11 @@ These records point the root domain to GitHub Pages.
 
 #### CNAME Record — WWW Subdomain
 
-To point `www.groxifi.com` to the root domain, configure:
+To point `www.yourdomain.com` to the root domain, configure:
 
 | Type | Name | Value | TTL |
 | --- | --- | --- | --- |
-| CNAME | `www` | `sb255.github.io` | Default |
+| CNAME | `www` | `YOUR_GITHUB_USERNAME.github.io` | Default |
 
 > **Important:** Remove conflicting A, AAAA, or CNAME records for the same host if they interfere with these settings. Keep any unrelated DNS records that your other services need.
 
@@ -124,7 +124,7 @@ DNS updates may take several minutes or up to 24–48 hours, depending on cachin
 You can check the DNS records using:
 
 ```bash
-nslookup groxifi.com
+nslookup yourdomain.com
 ```
 
 You can also use online DNS checking tools to verify that the records resolve correctly.
@@ -132,7 +132,7 @@ You can also use online DNS checking tools to verify that the records resolve co
 ### Step 4: Enable HTTPS on GitHub Pages
 
 1. Return to your repository's **Settings → Pages**.
-2. Confirm that `groxifi.com` appears under **Custom domain**.
+2. Confirm that `yourdomain.com` appears under **Custom domain**.
 3. Wait until GitHub finishes checking the DNS configuration and provisions a TLS certificate.
 4. Enable **Enforce HTTPS** when the option becomes available.
 
@@ -142,8 +142,8 @@ HTTPS encrypts traffic between visitors and your website.
 
 Once the DNS records and GitHub Pages configuration are active, test these URLs:
 
-- [https://groxifi.com](https://groxifi.com)
-- [https://www.groxifi.com](https://www.groxifi.com)
+- [https://yourdomain.com](https://yourdomain.com)
+- [https://www.yourdomain.com](https://www.yourdomain.com)
 
 Confirm that the website loads correctly and that HTTPS works.
 
@@ -156,7 +156,7 @@ Confirm that the website loads correctly and that HTTPS works.
 
 ### Deployment Configuration
 
-For a root custom domain such as `groxifi.com`, your Vite configuration should use:
+For a root custom domain such as `yourdomain.com`, your Vite configuration should use:
 
 ```js
 export default defineConfig({
@@ -177,7 +177,7 @@ npm run deploy
 
 ### 🐛 The Problem
 
-After pushing new commits to GitHub and deploying the website, the custom domain (`groxifi.com`) would sometimes stop working.
+After pushing new commits to GitHub and deploying the website, the custom domain (`yourdomain.com`) would sometimes stop working.
 
 The issue occurred because the deployment process published the contents of the `dist/` directory. If the `CNAME` file was missing from the build output, GitHub Pages could lose its custom-domain configuration.
 
@@ -206,7 +206,7 @@ brand-website/
 Open `public/CNAME` and add your custom domain:
 
 ```text
-groxifi.com
+yourdomain.com
 ```
 
 Make sure the file contains only the domain name, without `https://`, a path, or extra text.
@@ -245,7 +245,7 @@ dist/
 The file should contain:
 
 ```text
-groxifi.com
+yourdomain.com
 ```
 
 ### Step 5: Deploy the Website
