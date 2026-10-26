@@ -1,5 +1,6 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 
@@ -7,8 +8,8 @@ function SurveyForm(){
 
     const userSchema = z.object({
         name: z.string().min(3),
-        email: z.email(),
-        password: z.string().min(8),
+        email: z.string().trim(),
+        password: z.string().min(8, "Password must be at least 8 characters"),
     });
 
     const {
@@ -26,7 +27,9 @@ function SurveyForm(){
         touchedFields,
         submitCount,
         },
-    } = useForm<FormFields>();
+    } = useForm<FormFields>({
+            resolver: zodResolver(userSchema),
+        });
 
     const [status, setStatus] = useState(false);
 
@@ -34,11 +37,7 @@ function SurveyForm(){
         setStatus((prevStatus) => !prevStatus);
     };
 
-    type FormFields = {
-        name: String,
-        email: String,
-        password: String
-    }
+    type FormFields = z.infer<typeof userSchema>;
 
     return(
         <>

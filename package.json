@@ -12,13 +12,14 @@
     "deploy": "gh-pages -d dist --cname=groxifi.com"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.9.1",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/react-query": "^5.104.3",
     "@web3forms/react": "^1.1.3",
     "bootstrap": "^5.3.8",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-hook-form": "^7.90.0",
+    "react-hook-form": "^7.91.0",
     "tailwindcss": "^4.3.3",
     "zod": "^4.6.7"
   },
