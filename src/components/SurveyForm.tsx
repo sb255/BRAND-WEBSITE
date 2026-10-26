@@ -1,8 +1,15 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
+import { z } from "zod";
 
 
 function SurveyForm(){
+
+    const userSchema = z.object({
+        name: z.string().min(3),
+        email: z.email(),
+        password: z.string().min(8),
+    });
 
     const {
         register,
@@ -53,10 +60,18 @@ function SurveyForm(){
                                     }
                             })}
                         />
-                        {errors.name && (
+                    </div> 
+                </div>
+               <div className="flex w-full">
+                    <div className="flex w-2/5 bg-red-50">
+                    </div>
+                    <div className="flex w-3/5">
+                        <div className="flex w-full justify-start items-center bg-red-50 px-5">
+                            {errors.name && (
                                     <p style={{ color: "red" }}>{errors.name.message}</p>
-                                )}
-                    </div>  
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <div className="w-full flex items-center justify-center bg-red-50">
                     <div className="w-2/5">
@@ -72,10 +87,18 @@ function SurveyForm(){
                                     },
                             })}
                         />
-                        {errors.email && (
-                                    <p style={{ color: "red" }}>{errors.email.message}</p>
-                                )}
                     </div>  
+                </div>
+               <div className="flex w-full">
+                    <div className="flex w-2/5 bg-red-50">
+                    </div>
+                    <div className="flex w-3/5">
+                        <div className="flex w-full justify-start items-center bg-red-50 px-5">
+                            {errors.email && (
+                                    <p style={{ color: "red" }}>{errors.email.message}</p>
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <div className="w-full flex items-center justify-center bg-red-50">
                     <div className="w-2/5">
@@ -91,10 +114,18 @@ function SurveyForm(){
                                     }
                             })}
                         />
-                        {errors.password && (
-                                    <p style={{ color: "red" }}>{errors.password.message}</p>
-                                )}
                     </div>  
+                </div>
+                <div className="flex w-full">
+                    <div className="flex w-2/5 bg-red-50">
+                    </div>
+                    <div className="flex w-3/5">
+                        <div className="flex w-full justify-start items-center bg-red-50 px-5">
+                            {errors.password && (
+                                <p style={{ color: "red" }}>{errors.password.message}</p>
+                            )} 
+                        </div>
+                    </div>
                 </div>
                 <div className="w-full flex items-center justify-center bg-red-50">
                     <button className="bg-cyan-100 mx-5 my-5 text-2xl border-2 rounded-xl px-2 py-2" type="submit">SUBMIT</button>
