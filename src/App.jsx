@@ -13,6 +13,7 @@ import Checks from './components/Checks'
 import Test from './components/Test'
 import SurveyForm from './components/SurveyForm'
 import Query from './components/Query'
+import GroceryItems from './components/GroceryItems'
 
 //declaring an array of objects
   const productDetails = [
@@ -44,6 +45,7 @@ function App() {
   return (
     <>
       <Navigationbar />
+      <GroceryItems pd={productDetails}/>
       <Landingpage />
       <Mission />
       <SectionTitle title={'VIEW OUR TOP QUALITY PRODUCTS'} iconNumber={0}/>
