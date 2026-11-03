@@ -1,4 +1,29 @@
+import { useState, useEffect } from "react";
+
 function GroceryItems(props) {
+
+    const [response, setResponse] = useState(
+        "Backend not connected"
+    );
+
+    const fetchData =  async () => {
+
+        try{
+                const value = await fetch(
+                    "http://localhost:3000/api/users"
+                );
+
+                setResponse('Backend connected');
+        }
+        catch(error){
+            console.log(error)
+        }        
+
+    } 
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return(
         <>
@@ -7,6 +32,7 @@ function GroceryItems(props) {
                     <div key='{index}' className="flex h-100 bg-red-50">
                         <div className="flex justify-center items-center h-100 w-100 px-20 py-20">
                             <img src={object.image}/>
+                            {response}
                         </div>
                     </div>
                     ))}
