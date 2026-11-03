@@ -45,7 +45,6 @@ function App() {
   return (
     <>
       <Navigationbar />
-      <GroceryItems pd={productDetails}/>
       <Landingpage />
       <Mission />
       <SectionTitle title={'VIEW OUR TOP QUALITY PRODUCTS'} iconNumber={0}/>
@@ -60,3 +59,7 @@ function App() {
 }
 
 export default App
+
+/*
+  <GroceryItems pd={productDetails}/>
+*/
