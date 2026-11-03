@@ -13,7 +13,9 @@ function GroceryItems(props) {
                     "http://localhost:3000/api/users"
                 );
 
-                setResponse('Backend connected');
+                const input = await value.json();
+                
+                setResponse(input.message);
         }
         catch(error){
             console.log(error)
