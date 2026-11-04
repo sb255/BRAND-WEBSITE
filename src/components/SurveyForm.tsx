@@ -1,15 +1,18 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { number, z } from "zod";
 
 
 function SurveyForm(){
 
+    const [validSubmit, setValidSubmit] = useState(false);
+
     const userSchema = z.object({
         name: z.string().min(3),
-        email: z.string().trim(),
+        email: z.string().trim().includes('@', "Please enter a valid email address"),
         password: z.string().min(8, "Password must be at least 8 characters"),
+        
     });
 
     const {
@@ -35,13 +38,14 @@ function SurveyForm(){
 
     const onSubmit: SubmitHandler<FormFields> = (data) => {
         setStatus((prevStatus) => !prevStatus);
+        setValidSubmit((prevState)=>!prevState);
     };
 
     type FormFields = z.infer<typeof userSchema>;
 
     return(
         <>
-            <form onSubmit={handleSubmit(onSubmit)} className="border-red-300 border-4 flex justify-center mx-5 my-5 items-center rounded-xl overflow-hidden flex-col">
+            <form onSubmit={handleSubmit(onSubmit)} className="border-red-300 border-4 flex justify-center mx-5 my-5 py-10 items-center rounded-xl overflow-hidden flex-col">
                 <div className="w-full flex items-center justify-center bg-red-50 px-5 py-5">
                     <div className="flex text-4xl text-blue-300">CONTACT US FORM</div>
                 </div>
@@ -126,9 +130,41 @@ function SurveyForm(){
                         </div>
                     </div>
                 </div>
-                <div className="w-full flex items-center justify-center bg-red-50">
-                    <button className="bg-cyan-100 mx-5 my-5 text-2xl border-2 rounded-xl px-2 py-2" type="submit">SUBMIT</button>
+                <div className="flex w-full">
+                    <div className="flex w-2/5 bg-red-50">
+                    </div>
+                    <div className="flex w-3/5">
+                        <div className="flex w-full justify-start items-center bg-red-50 px-5">
+                           <button className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2" type="submit">Send OTP on Email</button>
+                        </div>  
+                    </div>
                 </div>
+                {
+                    validSubmit && (
+                                        <div className="flex w-full">
+                                            <div className="flex w-2/5 bg-red-50">
+                                            </div>
+                                            <div className="flex w-3/5">
+                                                <div className="flex w-full justify-start items-center bg-red-50 px-5">
+                                                    <input className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                    )
+                }
+                {
+                    validSubmit && (
+                                        <div className="flex w-full">
+                                            <div className="flex w-2/5 bg-red-50">
+                                            </div>
+                                            <div className="flex w-3/5">
+                                                <div className="flex w-full justify-start items-center bg-red-50 px-5">
+                                                    <button className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3" type="submit">Verify OTP and Submit Form</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                    )
+                }
                 <div>
                     {status && 
                         ( 
