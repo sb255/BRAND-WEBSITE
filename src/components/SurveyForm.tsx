@@ -6,13 +6,11 @@ import { number, z } from "zod";
 
 function SurveyForm(){
 
-    const [validSubmit, setValidSubmit] = useState(false);
-
     const userSchema = z.object({
         name: z.string().min(3),
         email: z.string().trim().includes('@', "Please enter a valid email address"),
         password: z.string().min(8, "Password must be at least 8 characters"),
-        
+        otp: z.number()
     });
 
     const {
@@ -35,6 +33,8 @@ function SurveyForm(){
         });
 
     const [status, setStatus] = useState(false);
+    const [validSubmit, setValidSubmit] = useState(false);
+
 
     const onSubmit: SubmitHandler<FormFields> = (data) => {
         setStatus((prevStatus) => !prevStatus);
@@ -146,7 +146,7 @@ function SurveyForm(){
                                             </div>
                                             <div className="flex w-3/5">
                                                 <div className="flex w-full justify-start items-center bg-red-50 px-5">
-                                                    <input className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3" type="text" />
+                                                    <input {...register("otp", { required: "The OTP is required"})} className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3" type="text" placeholder='123456'/>
                                                 </div>
                                             </div>
                                         </div>
