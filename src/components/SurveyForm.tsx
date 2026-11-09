@@ -2,6 +2,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { number, z } from "zod";
+import { Send } from 'lucide-react';
 
 
 function SurveyForm(){
@@ -195,7 +196,7 @@ function SurveyForm(){
                         )
                     }
                 </div>      
-            </form>) : <div className="text-cyan-500 text-4xl py-30">THE FORM HAS BEEN SUBMITTED SUCCESSFULLY</div>}
+            </form>) : <div className="flex flex-col py-40"><div className="flex justify-center items-center py-10"><Send color="#4B5563" size={200}/></div><div className="text-gray-600 text-4xl">FORM SUBMITTED SUCCESFULLY</div></div>}
         </>
     )
 }
