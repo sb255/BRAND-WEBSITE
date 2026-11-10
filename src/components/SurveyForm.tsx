@@ -33,6 +33,8 @@ function SurveyForm(){
     } = useForm<FormFields>({
             resolver: zodResolver(userSchema),
         });
+    
+    type FormFields = z.infer<typeof userSchema>;
 
     const [status, setStatus] = useState(false);
     const [validSubmit, setValidSubmit] = useState(false);
@@ -40,20 +42,33 @@ function SurveyForm(){
     const [newForm, setNewForm] = useState(false);
 
     const onSubmit: SubmitHandler<FormFields> = (data) => {
-        
+
         if(action=="proceedToOTP")
             setValidSubmit((prevState)=>!prevState); 
         
         if(action=="OTPProcessed"){
             setStatus((prevStatus) => !prevStatus);
             setValidSubmit((prevState)=>!prevState);
+            callServer(data);
             reset();
             setNewForm((prevState)=>!prevState);
         }
            
     };
 
-    type FormFields = z.infer<typeof userSchema>;
+    const callServer = async (data : FormFields) => {
+
+        const response = await fetch("http://localhost:3000/", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            
+        const result = await response.json(); 
+        console.log("Server response: ", result);
+    }
 
     return(
         <>
@@ -159,6 +174,7 @@ function SurveyForm(){
                                             </div>
                                             <div className="flex w-3/5">
                                                 <div className="flex w-full justify-start items-center bg-red-50 px-5">
+                                                    {/*MAYBE YOU DO NOT WANT TO REGISTER THE OTP TO THE FORM DATA*/}
                                                     <input {...register("otp")} className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3" type="text" placeholder='OTP'/>
                                                 </div>
                                             </div>
@@ -200,47 +216,5 @@ function SurveyForm(){
         </>
     )
 }
-
-/*
-
-Imagine useForm() returns an object like this:
-
-{
-  register: function,
-  handleSubmit: function,
-  formState: {
-    errors: {
-      name: {
-        message: "Name is required"
-      }
-    },
-    isSubmitting: false,
-    isDirty: true
-  }
-}
-You could access the errors like this:
-
-const result = useForm();
-
-const errors = result.formState.errors; Or, more conveniently, you can write:
-
-const {
-  formState: { errors },
-} = useForm();
- 
-*/
-
-
-/*
-
-Other options if you're not using react-hook-form
-
-<form action={submitAction}> 
-
-Here, React provides the submitted values as FormData; you can read them using .get().
-The key difference: React Hook Form is a form-management library, while the action prop is a built-in React feature.
-If you're learning React Hook Form, keep using handleSubmit() for now. You can learn React Actions separately when you're comfortable with the basics.
-
-*/
 
 export default SurveyForm
