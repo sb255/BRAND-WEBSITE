@@ -3,12 +3,15 @@ import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { number, z } from "zod";
 import { Send } from 'lucide-react';
+import FormField from "../components/FormField";
+import FormButton from "../components/FormButton"
+import FormButtonClick from "../components/FormButtonClick"
 
 
 function SurveyForm(){
 
     const userSchema = z.object({
-        name: z.string().min(3),
+        name: z.string().length(6, "The name should be ateat 6 chracters long"),
         email: z.string().trim().includes('@', "Please enter a valid email address"),
         password: z.string().min(8, "Password must be at least 8 characters"),
         otp: z.string().length(6, "Enter a valid OTP").regex(/^\d+$/, "OTP must contain only digits").optional()
@@ -74,135 +77,56 @@ function SurveyForm(){
         <>
             { !newForm ? (
             <form onSubmit={handleSubmit(onSubmit)} className="border-red-300 border-4 flex justify-center mx-5 my-5 py-10 items-center rounded-xl overflow-hidden flex-col">
-                <div className="w-full flex items-center justify-center bg-red-50 px-5 py-5">
-                    <div className="flex text-4xl text-blue-300">CONTACT US FORM</div>
-                </div>
-                <div className="w-full flex items-center justify-center bg-red-50">
-                    <div className="w-2/5">
-                        <label className="flex justify-end mx-5 my-5 text-2xl">NAME: </label>
-                    </div>
-                    <div className="w-3/5">
-                        <input className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2" type="text" placeholder="Samarth Bais"
-                            {...register("name", {
-                                    required: "NAME IS REQURIED",
-                                    minLength: {
-                                        value: 8,
-                                        message: "THE NAME SHOULD HAVE MINIMUM 8 CHARACTERS"
-                                    }
-                            })}
-                        />
-                    </div> 
-                </div>
-               <div className="flex w-full">
-                    <div className="flex w-2/5 bg-red-50">
-                    </div>
-                    <div className="flex w-3/5">
-                        <div className="flex w-full justify-start items-center bg-red-50 px-5">
-                            {errors.name && (
-                                    <p style={{ color: "red" }}>{errors.name.message}</p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-                <div className="w-full flex items-center justify-center bg-red-50">
-                    <div className="w-2/5">
-                        <label className="flex justify-end mx-5 my-5 text-2xl">EMAIL: </label>
-                    </div>
-                    <div className="w-3/5">
-                        <input className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2" type="text" placeholder="johndoe@example.com"
-                            {...register("email", {
-                                    required: "EMAIL IS REQUIRED",
-                                    pattern: {
-                                        value: /^\S+@\S+\.\S+$/,
-                                        message: "YOU NEED TO ENTER A VALID EMAIL",
-                                    },
-                            })}
-                        />
-                    </div>  
-                </div>
-               <div className="flex w-full">
-                    <div className="flex w-2/5 bg-red-50">
-                    </div>
-                    <div className="flex w-3/5">
-                        <div className="flex w-full justify-start items-center bg-red-50 px-5">
-                            {errors.email && (
-                                    <p style={{ color: "red" }}>{errors.email.message}</p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-                <div className="w-full flex items-center justify-center bg-red-50">
-                    <div className="w-2/5">
-                        <label className="flex justify-end mx-5 my-5 text-2xl">PASSWORD: </label>
-                    </div>
-                    <div className="w-3/5">
-                        <input className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2" type="password"
-                            {...register("password", {
-                                    required: "PASSWORD SHOULD HAVE A LENGHT OF 8 CHARACTERS",
-                                    minLength: {
-                                        value: 8,
-                                        message: "INSUFFICIENT LENGHT OF THE PASSWORD"
-                                    }
-                            })}
-                        />
-                    </div>  
-                </div>
-                <div className="flex w-full">
-                    <div className="flex w-2/5 bg-red-50">
-                    </div>
-                    <div className="flex w-3/5">
-                        <div className="flex w-full justify-start items-center bg-red-50 px-5">
-                            {errors.password && (
-                                <p style={{ color: "red" }}>{errors.password.message}</p>
-                            )} 
-                        </div>
-                    </div>
-                </div>
-                <div className="flex w-full">
-                    <div className="flex w-2/5 bg-red-50">
-                    </div>
-                    <div className="flex w-3/5">
-                        <div className="flex w-full justify-start items-center bg-red-50 px-5">
-                           <button onClick={() => setAction("proceedToOTP")} className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2" type="submit">Send OTP on Email</button>
-                        </div>  
-                    </div>
-                </div>
+                <FormField
+                    label="NAME :"
+                    error={errors.name?.message}
+                >
+                    <input
+                        className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
+                        type="text"
+                        placeholder="Samarth Bais"
+                        {...register("name")}
+                    />
+                </FormField>
+                <FormField
+                    label="EMAIL :"
+                    error={errors.email?.message}
+                >
+                    <input
+                        className="flex mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
+                        type="email"
+                        placeholder="johndoe@example.com"
+                        {...register("email")}
+                    />
+                </FormField>
+                <FormField
+                    label="PASSWORD :"
+                    error={errors.password?.message}
+                >
+                    <input
+                        className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
+                        type="password"
+                        {...register("password")}
+                    />
+                </FormField>
+                <FormButtonClick>
+                    <button onClick={() => setAction("proceedToOTP")} className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2" type="submit">Send OTP on Email</button>
+                </FormButtonClick>
                 {
                     validSubmit && (
-                                        <div className="flex w-full">
-                                            <div className="flex w-2/5 bg-red-50">
-                                            </div>
-                                            <div className="flex w-3/5">
-                                                <div className="flex w-full justify-start items-center bg-red-50 px-5">
-                                                    {/*MAYBE YOU DO NOT WANT TO REGISTER THE OTP TO THE FORM DATA*/}
-                                                    <input {...register("otp")} className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3" type="text" placeholder='OTP'/>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <FormButton>
+                                        <input {...register("otp")} className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3" type="text" placeholder='OTP'/>
+                                    </FormButton>
                     )
                 }
-                <div className="flex w-full">
-                    <div className="flex w-2/5 bg-red-50">
-                    </div>
-                    <div className="flex w-3/5">
-                        <div className="flex w-full justify-start items-center bg-red-50 px-5">
-                            {errors.otp && (
-                                    <p style={{ color: "red" }}>{errors.otp.message}</p>
-                            )}
-                        </div>
-                    </div>
-                </div>
+                <FormField error={errors.otp?.message}>
+                    <></>
+                </FormField>
                 {
                     validSubmit && (
-                                        <div className="flex w-full">
-                                            <div className="flex w-2/5 bg-red-50">
-                                            </div>
-                                            <div className="flex w-3/5">
-                                                <div className="flex w-full justify-start items-center bg-red-50 px-5">
-                                                    <button onClick={() => setAction("OTPProcessed")} className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3" type="submit">Verify OTP and Submit Form</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <FormButtonClick>
+                                            <button onClick={() => setAction("OTPProcessed")} className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3" type="submit">Verify OTP and Submit Form</button>
+                                        </FormButtonClick>
                     )
                 }
                 <div>
