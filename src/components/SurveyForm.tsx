@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { number, z } from "zod";
 import { Send } from 'lucide-react';
-import FormField from "../components/FormField";
-import FormButton from "../components/FormButton"
-import FormButtonClick from "../components/FormButtonClick"
+import FormField from "../components/form-components/FormField";
+import FormButton from "../components/form-components/FormButton"
+import FormButtonClick from "../components/form-components/FormButtonClick"
 
 
 function SurveyForm(){
