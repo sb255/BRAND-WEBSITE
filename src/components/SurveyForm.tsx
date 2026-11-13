@@ -11,7 +11,10 @@ import FormButtonClick from "../components/form-components/FormButtonClick"
 function SurveyForm(){
 
     const userSchema = z.object({
-        name: z.string().length(6, "The name should be ateat 6 chracters long"),
+        name: z.string().min(3, "Please enter a valid name"),
+        phone: z.number().min(999999999, "Please enter a valid number").max(10000000000, "Please enter a valid number"),
+        city: z.string().min(3, "Please enter a valid city name"),
+        state: z.string().min(2, "Please enter a valid state name"),
         email: z.string().trim().includes('@', "Please enter a valid email address"),
         password: z.string().min(8, "Password must be at least 8 characters"),
         otp: z.string().length(6, "Enter a valid OTP").regex(/^\d+$/, "OTP must contain only digits").optional()
@@ -35,6 +38,15 @@ function SurveyForm(){
         },
     } = useForm<FormFields>({
             resolver: zodResolver(userSchema),
+            defaultValues: {
+            name: "Johndoe",
+            city: "Barwani",
+            state: "Madhya Pradesh",
+            phone: 9999999999,
+            email: "customercare@groxifi.com",
+            password: "",
+            otp: "123456"
+            },
         });
     
     type FormFields = z.infer<typeof userSchema>;
@@ -76,7 +88,8 @@ function SurveyForm(){
     return(
         <>
             { !newForm ? (
-            <form onSubmit={handleSubmit(onSubmit)} className="border-red-300 border-4 flex justify-center mx-5 my-5 py-10 items-center rounded-xl overflow-hidden flex-col">
+            <form onSubmit={handleSubmit(onSubmit)} className="border-red-300 border-4 flex justify-center mx-5 my-5 items-center rounded-xl overflow-hidden flex-col">
+                <div className="bg-red-50 w-full justify-center items-center text-5xl px-5 py-5">CONTACT US FORM</div>
                 <FormField
                     label="NAME :"
                     error={errors.name?.message}
@@ -84,8 +97,37 @@ function SurveyForm(){
                     <input
                         className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
                         type="text"
-                        placeholder="Samarth Bais"
                         {...register("name")}
+                    />
+                </FormField>
+                <FormField
+                    label="PHONE :"
+                    error={errors.phone?.message}
+                >
+                    <input
+                        className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
+                        type="number"
+                        {...register("phone", { valueAsNumber: true})}
+                    />
+                </FormField>
+                <FormField
+                    label="CITY :"
+                    error={errors.city?.message}
+                >
+                    <input
+                        className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
+                        type="text"
+                        {...register("city")}
+                    />
+                </FormField>
+                <FormField
+                    label="STATE :"
+                    error={errors.state?.message}
+                >
+                    <input
+                        className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
+                        type="text"
+                        {...register("state")}
                     />
                 </FormField>
                 <FormField
@@ -95,7 +137,6 @@ function SurveyForm(){
                     <input
                         className="flex mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
                         type="email"
-                        placeholder="johndoe@example.com"
                         {...register("email")}
                     />
                 </FormField>
@@ -128,14 +169,7 @@ function SurveyForm(){
                                             <button onClick={() => setAction("OTPProcessed")} className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3" type="submit">Verify OTP and Submit Form</button>
                                         </FormButtonClick>
                     )
-                }
-                <div>
-                    {status && 
-                        ( 
-                            <p style={{ color: "red" }}>THE FORM HAS BEEN SUCCESFULLY SUBMITTED BY THE USER</p> 
-                        )
-                    }
-                </div>      
+                }     
             </form>) : <div className="flex flex-col py-40"><div className="flex justify-center items-center py-10"><Send color="#4B5563" size={200}/></div><div className="text-gray-600 text-4xl">FORM SUBMITTED SUCCESFULLY</div></div>}
         </>
     )
