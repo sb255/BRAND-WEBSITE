@@ -3,7 +3,7 @@ function ItemArrangement(props){
     return(
         <>
             
-            <div class="px-2 py-2 hover:translate-1">
+            <div className="px-2 py-2 hover:translate-1">
                 <a href={props.url} target="_blank" rel="noopener noreferrer">
                     <img src={props.photos}></img>
                 </a>

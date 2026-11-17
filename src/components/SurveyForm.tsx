@@ -27,8 +27,6 @@ const userSchema = z.object({
 
 type FormFields = z.infer<typeof userSchema>;
 
-const API_URL = "http://localhost:5000/api";
-
 function SurveyForm() {
 
     const {
@@ -45,11 +43,12 @@ function SurveyForm() {
         resolver: zodResolver(userSchema),
         mode: "onChange",
         defaultValues: {
-            name: "",
-            city: "",
-            state: "",
-            email: "",
-            password: ""
+            name: "John",
+            phone: 9999999998,
+            city: "Boston",
+            state: "MA",
+            email: "johndoe@example.com",
+            password: "password@123"
         }
     });
 
@@ -77,12 +76,12 @@ function SurveyForm() {
 
             const phoneNumber = getValues("phone");
 
-            const response = await fetch(`${API_URL}/otp/send`, {
+            const response = await fetch(`http://localhost:3000/api/otp/send`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ phoneNumber })
+                body: JSON.stringify({})
             });
 
             const result = await response.json();
@@ -117,7 +116,7 @@ function SurveyForm() {
 
             // Verify OTP with backend
             const verifyResponse = await fetch(
-                `${API_URL}/otp/verify`,
+                `http://localhost:3000/api/otp/verify`,
                 {
                     method: "POST",
                     headers: {
@@ -143,7 +142,7 @@ function SurveyForm() {
 
             // Submit form only after successful OTP verification
             const submitResponse = await fetch(
-                `${API_URL}/forms/submit`,
+                `http://localhost:3000/api/forms/submit`,
                 {
                     method: "POST",
                     headers: {
