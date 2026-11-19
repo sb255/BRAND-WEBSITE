@@ -1,33 +1,27 @@
-
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Send } from "lucide-react";
 
-import FormField from "../components/form-components/FormField";
-import FormButton from "../components/form-components/FormButton";
-import FormButtonClick from "../components/form-components/FormButtonClick";
-
-// Form validation schema
-const userSchema = z.object({
-    name: z.string().min(3, "Please enter a valid name"),
-
-    phone: z.number().min(6000000000, "Enter a valid phone number for recieving the OTP")
-        .max(9999999999, "Enter a valid phone number for recieving the OTP"),
-
-    city: z.string().min(3, "Please enter a valid city name"),
-
-    state: z.string().min(2, "Please enter a valid state name"),
-
-    email: z.string().trim().email("Please enter a valid email address"),
-
-    password: z.string().min(8, "Password must be at least 8 characters")
+const surveySchema = z.object({
+    name: z.string().trim().min(3, "Enter at least 3 characters"),
+    city: z.string().trim().min(3, "Enter a valid city"),
+    state: z.string().trim().min(2, "Enter a valid state"),
+    phone: z.string().regex(
+        /^[6-9]\d{9}$/,
+        "Enter a valid 10-digit Indian mobile number"
+    ),
+    email: z.email("Enter a valid email address")
 });
 
-type FormFields = z.infer<typeof userSchema>;
+type SurveyFields = z.infer<typeof surveySchema>;
 
 function SurveyForm() {
+    const [otp, setOtp] = useState("");
+    const [otpSent, setOtpSent] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
+    const [success, setSuccess] = useState(false);
 
     const {
         register,
@@ -35,66 +29,71 @@ function SurveyForm() {
         trigger,
         getValues,
         reset,
-        formState: {
-            errors,
-            isSubmitting
-        }
-    } = useForm<FormFields>({
-        resolver: zodResolver(userSchema),
-        mode: "onChange",
+        formState: { errors }
+    } = useForm<SurveyFields>({
+        resolver: zodResolver(surveySchema),
         defaultValues: {
-            name: "John",
-            phone: 9999999998,
-            city: "Boston",
-            state: "MA",
-            email: "johndoe@example.com",
-            password: "password@123"
+            name: "",
+            city: "",
+            state: "",
+            phone: "",
+            email: ""
         }
     });
 
-    const [otp, setOtp] = useState("");
-    const [otpSent, setOtpSent] = useState(false);
-    const [verified, setVerified] = useState(false);
-    const [verificationToken, setVerificationToken] = useState("");
+    const inputClass =
+        "w-full rounded-lg border border-gray-300 " +
+        "bg-white px-4 py-3 text-gray-900 " +
+        "placeholder:text-gray-400 outline-none " +
+        "transition-colors focus:border-blue-500 " +
+        "focus:ring-2 focus:ring-blue-100 " +
+        "disabled:bg-gray-100";
 
-    const [newForm, setNewForm] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    const labelClass =
+        "flex mb-2 block text-sm font-medium text-gray-700";
+
+    const errorClass =
+        "flex mt-1 text-sm text-red-500";
 
     // STEP 1: Send OTP
     const sendOTP = async () => {
 
-        // Validate form fields before sending OTP
         const valid = await trigger();
-
+        
         if (!valid) return;
 
         try {
-
             setLoading(true);
             setMessage("");
+            setSuccess(false);
 
-            const phoneNumber = getValues("phone");
+            const phoneNumber = `+91${getValues("phone")}`;
 
-            const response = await fetch(`http://localhost:3000/api/otp/send`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({})
-            });
+            const response = await fetch(
+                `http://localhost:3000/api/otp/send`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ phoneNumber })
+                }
+            );
 
             const result = await response.json();
 
             if (!response.ok) {
-                throw new Error(result.message);
+                throw new Error(
+                    result.message || "Failed to send OTP"
+                );
             }
 
             setOtpSent(true);
-            setMessage("OTP sent successfully!");
+            setMessage(
+                "OTP generated. Check your backend terminal."
+            );
 
         } catch (error) {
-
             setMessage(
                 error instanceof Error
                     ? error.message
@@ -106,77 +105,59 @@ function SurveyForm() {
         }
     };
 
-    // STEP 2 and STEP 3: Verify OTP and submit form
-    const verifyAndSubmit: SubmitHandler<FormFields> = async (data) => {
+    // STEP 2: Verify OTP and Submit Survey
+    const submitOTP: SubmitHandler<SurveyFields> = async (data) => {
+        if (!otpSent || !/^\d{6}$/.test(otp)) {
+            setMessage("Enter a valid 6-digit OTP");
+            return;
+        }
 
         try {
-
             setLoading(true);
             setMessage("");
 
-            // Verify OTP with backend
-            const verifyResponse = await fetch(
-                `http://localhost:3000/api/otp/verify`,
+            const response = await fetch(
+                `http://localhost:3000/api/forms/verify-and-submit`,
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        phoneNumber: data.phone,
+                        name: data.name,
+                        city: data.city,
+                        state: data.state,
+                        phone: `+91${data.phone}`,
+                        email: data.email,
                         otp
                     })
                 }
             );
 
-            const verifyResult = await verifyResponse.json();
+            const result = await response.json();
 
-            if (!verifyResponse.ok) {
-                throw new Error(verifyResult.message);
+            if (!response.ok) {
+                throw new Error(
+                    result.message || "Survey submission failed"
+                );
             }
 
-            const token = verifyResult.verificationToken;
-
-            setVerified(true);
-            setVerificationToken(token);
-
-            // Submit form only after successful OTP verification
-            const submitResponse = await fetch(
-                `http://localhost:3000/api/forms/submit`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        ...data,
-                        verificationToken: token
-                    })
-                }
+            setSuccess(true);
+            setMessage(
+                "OTP verified and survey accepted!"
             );
 
-            const submitResult = await submitResponse.json();
-
-            if (!submitResponse.ok) {
-                throw new Error(submitResult.message);
-            }
-
-            setMessage("Form submitted successfully!");
-
-            setNewForm(true);
             reset();
-
             setOtp("");
             setOtpSent(false);
-            setVerified(false);
-            setVerificationToken("");
 
         } catch (error) {
+            setSuccess(false);
 
             setMessage(
                 error instanceof Error
                     ? error.message
-                    : "Form submission failed"
+                    : "Unable to submit survey"
             );
 
         } finally {
@@ -185,168 +166,209 @@ function SurveyForm() {
     };
 
     return (
-        <>
-            {!newForm ? (
+        <div className="bg-gray-100 px-4 py-10">
+            <div className="mx-auto mx max-w-xl rounded-2xl bg-white p-6 shadow-lg md:p-8">
+
+                {/* Header */}
+                <h1 className="mb-2 text-center text-3xl font-bold text-blue-700">
+                    Survey Form
+                </h1>
+
+                <p className="mb-8 text-center text-sm text-gray-500">
+                    Complete your details and verify your phone number.
+                </p>
 
                 <form
-                    onSubmit={handleSubmit(verifyAndSubmit)}
-                    className="border-red-300 border-4 flex justify-center mx-5 my-5 items-center rounded-xl overflow-hidden flex-col"
+                    onSubmit={handleSubmit(submitOTP)}
+                    noValidate
+                    className="space-y-5"
                 >
 
-                    <div className="bg-red-50 w-full justify-center items-center text-5xl px-5 py-5">
-                        CONTACT US FORM
-                    </div>
+                    {/* Full Name */}
+                    <div>
+                        <label htmlFor="name" className={labelClass}>
+                            Full Name
+                        </label>
 
-                    <FormField
-                        label="NAME :"
-                        error={errors.name?.message}
-                    >
                         <input
-                            className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
+                            id="name"
                             type="text"
+                            placeholder="Enter your full name"
+                            autoComplete="name"
+                            className={inputClass}
                             {...register("name")}
                         />
-                    </FormField>
 
-                    <FormField
-                        label="PHONE :"
-                        error={errors.phone?.message}
-                    >
+                        {errors.name && (
+                            <p className={errorClass}>
+                                {errors.name.message}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* City */}
+                    <div>
+                        <label htmlFor="city" className={labelClass}>
+                            City
+                        </label>
+
                         <input
-                            className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
-                            type="number"
-                            {...register("phone", { valueAsNumber: true })}
-                            disabled={otpSent}
-
-                        />
-                    </FormField>
-
-                    <FormField
-                        label="CITY :"
-                        error={errors.city?.message}
-                    >
-                        <input
-                            className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
+                            id="city"
                             type="text"
+                            placeholder="Enter your city"
+                            className={inputClass}
                             {...register("city")}
                         />
-                    </FormField>
 
-                    <FormField
-                        label="STATE :"
-                        error={errors.state?.message}
-                    >
+                        {errors.city && (
+                            <p className={errorClass}>
+                                {errors.city.message}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* State */}
+                    <div>
+                        <label htmlFor="state" className={labelClass}>
+                            State
+                        </label>
+
                         <input
-                            className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
+                            id="state"
                             type="text"
+                            placeholder="Enter your state"
+                            className={inputClass}
                             {...register("state")}
                         />
-                    </FormField>
 
-                    <FormField
-                        label="EMAIL :"
-                        error={errors.email?.message}
-                    >
+                        {errors.state && (
+                            <p className={errorClass}>
+                                {errors.state.message}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* Email */}
+                    <div>
+                        <label htmlFor="email" className={labelClass}>
+                            Email Address
+                        </label>
+
                         <input
-                            className="flex mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
+                            id="email"
                             type="email"
+                            placeholder="Enter your email address"
+                            autoComplete="email"
+                            className={inputClass}
                             {...register("email")}
                         />
-                    </FormField>
 
-                    <FormField
-                        label="PASSWORD :"
-                        error={errors.password?.message}
-                    >
-                        <input
-                            className="flex justify-start mx-5 my-5 border-4 rounded-xl text-2xl px-2 py-2"
-                            type="password"
-                            {...register("password")}
-                        />
-                    </FormField>
+                        {errors.email && (
+                            <p className={errorClass}>
+                                {errors.email.message}
+                            </p>
+                        )}
+                    </div>
 
-                    {/* STEP 1: Send OTP */}
+                    {/* Phone Number */}
+                    <div>
+                        <label htmlFor="phone" className={labelClass}>
+                            Phone Number
+                        </label>
 
-                    {!otpSent && (
-
-                        <FormButtonClick>
-                            <button
-                                type="button"
-                                onClick={sendOTP}
-                                disabled={loading}
-                                className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2"
-                            >
-                                {loading ? "Sending..." : "Send OTP on Mobile"}
-                            </button>
-                        </FormButtonClick>
-
-                    )}
-
-                    {/* STEP 2: Enter OTP */}
-
-                    {otpSent && !verified && (
-
-                        <FormButton>
+                        <div className="flex gap-2">
+                            <span className="flex items-center rounded-lg border border-gray-300 bg-gray-100 px-4 text-gray-700">
+                                +91
+                            </span>
 
                             <input
-                                value={otp}
-                                onChange={(e) => setOtp(
-                                    e.target.value.replace(/\D/g, "").slice(0, 6)
-                                )}
-                                className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3"
-                                type="text"
+                                id="phone"
+                                type="tel"
                                 inputMode="numeric"
-                                placeholder="Enter OTP"
-                                maxLength={6}
+                                maxLength={10}
+                                placeholder="10-digit mobile number"
+                                disabled={otpSent}
+                                className={inputClass}
+                                {...register("phone")}
                             />
+                        </div>
 
-                        </FormButton>
+                        {errors.phone && (
+                            <p className={errorClass}>
+                                {errors.phone.message}
+                            </p>
+                        )}
+                    </div>
 
+                    {/* Send OTP Button */}
+                    {!otpSent && (
+                        <button
+                            type="button"
+                            onClick={sendOTP}
+                            disabled={loading}
+                            className="w-full rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                            {loading ? "Sending..." : "Send OTP"}
+                        </button>
                     )}
 
-                    {/* STEP 3: Verify and Submit */}
+                    {/* OTP Section */}
+                    {otpSent && (
+                        <div className="space-y-4 rounded-lg border border-blue-100 bg-blue-50 p-4">
 
-                    {otpSent && !verified && (
+                            <div>
+                                <label htmlFor="otp" className={labelClass}>
+                                    Enter 6-digit OTP
+                                </label>
 
-                        <FormButtonClick>
+                                <input
+                                    id="otp"
+                                    type="text"
+                                    inputMode="numeric"
+                                    maxLength={6}
+                                    autoComplete="one-time-code"
+                                    placeholder="Enter OTP"
+                                    value={otp}
+                                    onChange={(event) =>
+                                        setOtp(
+                                            event.target.value.replace(/\D/g, "")
+                                        )
+                                    }
+                                    className={inputClass}
+                                />
+                            </div>
 
                             <button
-                                type="button"
+                                type="submit"
                                 disabled={loading || otp.length !== 6}
-                                onClick={handleSubmit(verifyAndSubmit)}
-                                className="bg-cyan-100 text-2xl border-2 rounded-xl px-2 py-2 my-3 disabled:opacity-50"
+                                className="w-full rounded-lg bg-green-600 px-4 py-3 font-semibold text-white transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 {loading
                                     ? "Verifying..."
-                                    : "Verify OTP and Submit Form"}
+                                    : "Submit OTP & Survey"}
                             </button>
 
-                        </FormButtonClick>
-
+                        </div>
                     )}
 
+                    {/* Success/Error Message */}
                     {message && (
-                        <p className="text-lg my-3">
+                        <p
+                            role="status"
+                            aria-live="polite"
+                            className={`rounded-lg p-3 text-center text-sm ${
+                                success
+                                    ? "bg-green-50 text-green-700"
+                                    : "bg-gray-100 text-gray-700"
+                            }`}
+                        >
                             {message}
                         </p>
                     )}
 
                 </form>
-
-            ) : (
-
-                <div className="flex flex-col py-40">
-                    <div className="flex justify-center items-center py-10">
-                        <Send color="#4B5563" size={200} />
-                    </div>
-
-                    <div className="text-gray-600 text-4xl">
-                        FORM SUBMITTED SUCCESSFULLY
-                    </div>
-                </div>
-
-            )}
-        </>
+            </div>
+        </div>
     );
 }
 
